@@ -1,0 +1,7 @@
+checkout/.vscode/
+checkout/bin/
+checkout/obj/
+test/.vscode/
+test/bin/
+test/obj/
+test/TestResult.xml
