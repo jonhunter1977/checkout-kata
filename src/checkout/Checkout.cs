@@ -9,11 +9,13 @@ namespace Checkout
     {
         private List<IItem> _scannedItems;
         private IItemRepository _itemRepository;
+        private IOfferService _offerService;
 
-        public Checkout(IItemRepository itemRepository)
+        public Checkout(IItemRepository itemRepository, IOfferService offerService)
         {
             _scannedItems = new List<IItem>();
             _itemRepository = itemRepository;
+            _offerService = offerService;
         }
         public void scanItem(IItem item)
         {
@@ -28,7 +30,9 @@ namespace Checkout
 
         public double getTotalCost()
         {
-            return _scannedItems.Sum(x => _itemRepository.getItemPrice(x.getItemCode()));
+            var discountFromOffers = _offerService.CalculateDiscountFromOffers(_scannedItems);
+            var totalCost = _scannedItems.Sum(x => _itemRepository.getItemPrice(x.getItemCode()));
+            return totalCost - discountFromOffers;
         }
     }
 }
