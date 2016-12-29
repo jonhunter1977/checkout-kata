@@ -33,7 +33,12 @@ namespace Checkout.Tests
                 new Item("A")
             };
             mockOfferService.Setup(offerService => offerService.CalculateDiscountFromOffers(
-            It.Is<List<IItem>>(x => x.Where(y => y.getItemCode() == "A").Count() == 3))).Returns(20);
+                It.Is<List<IItem>>(x => x.Where(y => y.getItemCode() == "A").Count() == 3)))
+                .Returns(20);
+
+            mockOfferService.Setup(offerService => offerService.CalculateDiscountFromOffers(
+                It.Is<List<IItem>>(x => x.Where(y => y.getItemCode() == "B").Count() == 2)))
+                .Returns(15);
 
             _checkout = new Checkout(mockItemRepository.Object, mockOfferService.Object);
         }
@@ -91,6 +96,15 @@ namespace Checkout.Tests
             _checkout.scanItem(item);
             var price = _checkout.getTotalCost();
             Assert.AreEqual(100, price);
+        }
+
+        [Test]
+        public void If_I_Scan_2_Of_Item_B_The_Price_Is_45()
+        {
+            _checkout.scanItem(new Item("B"));
+            _checkout.scanItem(new Item("B"));
+            var price = _checkout.getTotalCost();
+            Assert.AreEqual(45, price);
         }
     }
 }
