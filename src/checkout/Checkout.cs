@@ -8,8 +8,8 @@ namespace Checkout
     public class Checkout : ICheckout
     {
         private List<IItem> _scannedItems;
-        private IItemRepository _itemRepository;
-        private IOfferService _offerService;
+        private readonly IItemRepository _itemRepository;
+        private readonly IOfferService _offerService;
 
         public Checkout(IItemRepository itemRepository, IOfferService offerService)
         {
