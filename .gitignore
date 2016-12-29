@@ -1,6 +1,6 @@
-src/checkout/.vscode/
-src/checkout/bin/
-src/checkout/obj/
+src/checkout/.vscode/*
+src/checkout/bin/*
+src/checkout/obj/*
 test/.vscode/
 test/bin/
 test/obj/
