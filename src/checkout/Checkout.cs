@@ -17,6 +17,7 @@ namespace Checkout
             _itemRepository = itemRepository;
             _offerService = offerService;
         }
+        
         public void scanItem(IItem item)
         {
             //Check the item exists in the repository (i.e. there is a price for it)
